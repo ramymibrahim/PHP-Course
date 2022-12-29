@@ -1,5 +1,11 @@
 <?php
+//$_GET
+//$_POST
+//$_REQUEST
+//$_FILES
+echo $_REQUEST['username'];
 if (!empty($_REQUEST)) {
+  
   $username = htmlspecialchars(trim(stripslashes($_REQUEST['username'])));
   $email = htmlspecialchars(trim(stripslashes($_REQUEST['email'])));
   if (!isset($_REQUEST['username']) || empty($_REQUEST['username'])) {
@@ -7,6 +13,7 @@ if (!empty($_REQUEST)) {
     $username_error = 'Please enter a valid username';
   }
 
+  
   var_dump(filter_var($email, FILTER_VALIDATE_EMAIL));
 }
 ?>

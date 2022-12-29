@@ -13,6 +13,13 @@ var_dump($students[0]['id']);
 echo "<br />";
 echo count($students);
 
+array_push($students, 'Test');
+var_dump($students);
+echo '<br />';
+array_splice($students, 2, 1);
+var_dump($students);
+echo '<br />';
+
 for ($i = 0; $i < count($students); $i++) {
     echo "
     <div>

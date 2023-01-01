@@ -1,0 +1,2 @@
+CREATE db using PHPMyAdmin called shop with collation (utf-8_general_ci)
+and import the shop.sql file using import command

@@ -1,0 +1,3 @@
+CREATE the following pages:
+admin/products.php contains a table with product columns and (add, edit, and delete buttons) (HTML and PHP)
+admin/add-product.php contains form fields for adding new product (HTML only)

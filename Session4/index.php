@@ -8,7 +8,6 @@
 // } else {
 //     die("Connection failed: " . mysqli_connect_error());
 // }
-
 $con = new mysqli('localhost', 'root', '', 'shop');
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);

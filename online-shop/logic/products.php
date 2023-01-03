@@ -1,12 +1,12 @@
 <?php
-require_once(BASE_PATH.'dal/dal.php');
+require_once(BASE_PATH . 'dal/dal.php');
 function getProducts()
 {
     $query = "SELECT p.*,c.name category_name,s.name size_name,cl.name color_name,r.rating,r.rating_count FROM 
     products p JOIN categories c ON p.category_id=c.id
     JOIN sizes s on s.id = p.size_id
     JOIN colors cl on cl.id = p.color_id
-	JOIN (SELECT product_id,AVG(rate) rating,COUNT(0) rating_count FROM `ratings` GROUP BY product_id) r ON r.product_id = p.id";
+	LEFT JOIN (SELECT product_id,AVG(rate) rating,COUNT(0) rating_count FROM `ratings` GROUP BY product_id) r ON r.product_id = p.id";
     return get_rows($query);
 }
 
@@ -40,4 +40,55 @@ function display_product($product)
         </div>
     </div>
 </div>';
+}
+
+function deleteProduct($id)
+{
+    $query = "DELETE FROM products WHERE id=$id";
+    try {
+        $result = execute($query);
+    } catch (Exception $e) {
+        if (session_status() === PHP_SESSION_NONE)
+            session_start();
+        $_SESSION['error_message'] = "Error while deleting the product";
+        $result = false;
+        //$e->getMessage();
+    }
+    return $result;
+}
+
+function addProduct($values)
+{
+    $query = "INSERT INTO products (name,description,price,discount,image_url
+,category_id,size_id,color_id,is_recent,is_featured,bar_code) VALUES (
+        '" . $values['name'] . "','" . $values['description'] . "'," . $values['price'] . ",
+        " . $values['discount'] . ",'" . $values['image_url'] . "'," . $values['category_id'] . "
+        ," . $values['size_id'] . "," . $values['color_id'] . "," . $values['is_recent'] . "," . $values['is_featured'] . "
+        ," . ($values['bar_code'] ? "'" . $values['bar_code'] . "'" : 'NULL') . ")";
+
+    return execute($query);
+}
+
+function getProductById($id)
+{
+    $q = "SELECT * FROM products WHERE id=$id";
+    return get_row($q);
+}
+function editProduct($values)
+{
+    $query = "UPDATE products SET 
+    name='" . $values['name'] . "'
+    ,description='" . $values['description'] . "'
+    ,price=" . $values['price'] . "
+    ,discount=" . $values['discount'] . "
+    ,image_url='" . $values['image_url'] . "'
+    ,category_id=" . $values['category_id'] . "
+    ,size_id=" . $values['size_id'] . "
+    ,color_id=" . $values['color_id'] . "
+    ,is_recent=" . $values['is_recent'] . "
+    ,is_featured=" . $values['is_featured'] . "
+    ,bar_code=" . ($values['bar_code'] ? "'" . $values['bar_code'] . "'" : 'NULL') . "
+    WHERE id=" . $values['id'];
+    var_export($query);
+    return execute($query);
 }

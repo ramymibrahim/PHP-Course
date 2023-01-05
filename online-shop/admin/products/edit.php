@@ -2,7 +2,8 @@
 define('BASE_ADMIN_URL', '/online-shop/admin/');
 define('BASE_URL', '/online-shop/');
 define('BASE_PATH', '../../');
-
+require_once('../../logic/authentication.php');
+protectAdmin();
 require_once('../../logic/categories.php');
 require_once('../../logic/sizes.php');
 require_once('../../logic/colors.php');

@@ -1,5 +1,9 @@
 <?php
-define('BASE_URL', 'admin/');
+define('BASE_ADMIN_URL', '/online-shop/admin/');
+define('BASE_URL', '/online-shop/');
+define('BASE_PATH', '../');
+require_once('../logic/authentication.php');
+protectAdmin();
 require_once('./layouts/header.php');
 ?>
 <!-- Content Wrapper. Contains page content -->

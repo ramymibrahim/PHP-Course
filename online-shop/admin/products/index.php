@@ -2,6 +2,8 @@
 define('BASE_ADMIN_URL', '/online-shop/admin/');
 define('BASE_URL', '/online-shop/');
 define('BASE_PATH', '../../');
+require_once('../../logic/authentication.php');
+protectAdmin();
 if (session_status() === PHP_SESSION_NONE)
   session_start();
 
